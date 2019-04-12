@@ -1,0 +1,4 @@
+build/packer-ansible/packer-project/
+*.iml
+*.orig
+.idea/

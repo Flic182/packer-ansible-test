@@ -1,0 +1,29 @@
+version: '3.7'
+services:
+  packer_ansible:
+    build:
+      context: build/packer-ansible
+      args:
+        - BASE_IMAGE=hashicorp/packer:latest
+        - USER_ID=${USER_ID}
+        - USER_NAME=${USER_NAME}
+    container_name: packer-ansible
+    environment:
+      - ANSIBLE_GATHERING=smart
+      - ANSIBLE_HOST_KEY_CHECKING=false
+      - ANSIBLE_PATH=/ansible/bin
+      - ANSIBLE_RETRY_FILES_ENABLED=false
+      - ANSIBLE_SCP_IF_SSH=y
+      - ANSIBLE_SSH_PIPELINING=True
+      - PACKER_SCRIPT=packer/ChangeMe.json
+      - PYTHONPATH=/ansible/lib
+      - USER=${USER_ID}
+    image: packer_ansible_image
+    stdin_open: true
+    tty: true
+    user: ${USER_ID}
+    working_dir: /opt/packer-project
+    volumes:
+      - ./build/packer-ansible/packer-project:/opt/packer-project
+      - ~/.aws:/home/${USER_NAME}/.aws
+      - ~/.saml2aws:/home/${USER_NAME}/.saml2aws
