@@ -1,4 +1,4 @@
-ARG BASE_IMAGE=hashicorp/packer:latest
+ARG BASE_IMAGE=hashicorp/packer:1.7.5
 FROM $BASE_IMAGE
 
 # Must put these ARGs here.  If ahead of the FROM, they will be wiped clean!
